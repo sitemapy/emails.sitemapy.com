@@ -1,0 +1,161 @@
+backend:
+  name: git-gateway
+  branch: main # Branch to update (optional; defaults to master)
+
+media_folder: "src/public/cms/uploads"
+public_folder: "/public/cms/uploads"
+local_backend: true
+
+editor:
+  preview: false
+collections:
+  - name: "campaigns"
+    label: "Campaigns"
+    folder: "src/public/cms/campaigns"
+    create: true
+    format: "json"
+    slug: "{{lang}}-{{fields.id}}"
+    summary: "/{{lang}}/{{fields.id}}"
+    fields:
+      - { label: "type", name: "type", widget: "hidden", "default": "campaign" }
+      - { label: "id", name: "id", widget: "string" }
+      - { label: "lang", name: "lang", widget: "string" }
+      - { label: "subject", name: "subject", widget: "string" }
+      - { label: "sender", name: "sender", widget: "string" }
+      - { label: "preview", name: "preview", widget: "string" }
+      - {
+          label: "content",
+          name: "content",
+          widget: "list",
+          types:
+            [
+              {
+                label: "📌 Title",
+                name: "title",
+                widget: "object",
+                summary: "{{fields.title.value}}",
+                fields:
+                  [
+                    {
+                      label: "tag",
+                      name: "tag",
+                      widget: "select",
+                      options: ["h1", "h2", "h3", "h4", "h5", "h6"],
+                      default: "h1",
+                    },
+                    { label: "value", name: "value", widget: "markdown" },
+                  ],
+              },
+              {
+                label: "✍️ Paragraph",
+                name: "paragraph",
+                widget: "object",
+                summary: "{{fields.title.value}}",
+                fields: [{ label: "value", name: "value", widget: "markdown" }],
+              },
+              {
+                label: "👇 Button",
+                name: "button",
+                widget: "object",
+                summary: "{{fields.title.value}}",
+                fields:
+                  [
+                    { label: "href", name: "href", widget: "string" },
+                    { label: "value", name: "value", widget: "string" },
+                    {
+                      label: "theme",
+                      name: "theme",
+                      widget: "select",
+                      options: ["primary", "secondary"],
+                      default: "primary",
+                    },
+                  ],
+              },
+              {
+                label: "📷 Image",
+                name: "image",
+                widget: "object",
+                summary: "{{fields.title.value}}",
+                fields: [{ label: "src", name: "src", widget: "image" }],
+              },
+              {
+                label: "🎥 Video",
+                name: "video",
+                widget: "object",
+                summary: "{{fields.title.value}}",
+                fields: [{ label: "src", name: "src", widget: "string" }],
+              },
+              {
+                label: "📏 Separator",
+                name: "separator",
+                widget: "object",
+                fields:
+                  [
+                    {
+                      label: "style",
+                      name: "style",
+                      widget: "select",
+                      options: ["full-width"],
+                      default: "full-width",
+                    },
+                  ],
+              },
+              {
+                label: "💰 Pricing",
+                name: "pricing",
+                widget: "object",
+                summary: "{{fields.name}}",
+                fields:
+                  [
+                    { label: "Name", name: "name", widget: "string" },
+                    { label: "Price", name: "price", widget: "string" },
+                    {
+                      label: "Before Price",
+                      name: "before_price",
+                      widget: "string",
+                      optional: true,
+                    },
+                    { label: "Interval", name: "interval", widget: "string" },
+                    {
+                      label: "Features",
+                      name: "features",
+                      widget: "list",
+                      field:
+                        { label: "Feature", name: "feature", widget: "string" },
+                    },
+                    {
+                      label: "Button",
+                      name: "button",
+                      widget: "object",
+                      fields:
+                        [
+                          { label: "label", name: "label", widget: "string" },
+                          { label: "href", name: "href", widget: "string" },
+                        ],
+                    },
+                  ],
+              },
+              {
+                label: "💋 Quote",
+                name: "quote",
+                widget: "object",
+                summary: "{{fields.title.value}}",
+                fields:
+                  [
+                    { label: "title", name: "title", widget: "string" },
+                    {
+                      label: "description",
+                      name: "description",
+                      widget: "markdown",
+                    },
+                    {
+                      label: "theme",
+                      name: "theme",
+                      widget: "select",
+                      options:
+                        ["slate", "pink", "blue", "emerald", "red", "orange"],
+                    },
+                  ],
+              },
+            ],
+        }
